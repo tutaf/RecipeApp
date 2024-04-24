@@ -1,6 +1,7 @@
 package com.tutaf.recipeapp.view
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -41,7 +42,7 @@ const val categoriesScreenRouteDefinition = "category"
      val categories by viewModel.categories.collectAsStateWithLifecycle()
  //    val meals by viewModel.meals.collectAsStateWithLifecycle()
 
-     CategoriesScreenContent(categories)
+     CategoriesScreenContent(categories, onCategoryClick)
 
 }
 
@@ -50,7 +51,7 @@ val ItemBackgroundColor = Color(0xFFF6F6F6)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CategoriesScreenContent(categories: List<ApiCategory>) {
+fun CategoriesScreenContent(categories: List<ApiCategory>, onCategoryClick: (ApiCategory) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -75,6 +76,7 @@ fun CategoriesScreenContent(categories: List<ApiCategory>) {
                             elevation = 8.dp,
                             shape = RoundedCornerShape(20.dp) // Rounded corners with shadows
                         )
+                        .clickable { onCategoryClick(category) }
                         .background(
                             color = ItemBackgroundColor,
                             shape = RoundedCornerShape(20.dp)
@@ -109,6 +111,6 @@ fun CategoriesScreenPreview()  {
 
         )
 
-    CategoriesScreenContent(categories = categories)
+    CategoriesScreenContent(categories = categories, {})
 }
 

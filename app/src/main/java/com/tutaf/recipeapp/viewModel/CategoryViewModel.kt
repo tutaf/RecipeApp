@@ -1,6 +1,7 @@
 package com.tutaf.recipeapp.viewModel
 
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -29,6 +30,7 @@ class CategoryViewModel(
 
 
     init {
+        Log.i("tagtag", category+"111111111111")
         getCategoryMeals()
     }
 

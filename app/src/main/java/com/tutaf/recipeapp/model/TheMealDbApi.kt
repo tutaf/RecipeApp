@@ -18,8 +18,9 @@ interface TheMealDbApi {
     @GET("categories.php")
     suspend fun getCategories(): Response<ApiCategories>
 
-    @GET("filter.php?c={categoryName}")
+    @GET("filter.php")
     suspend fun getMealsByCategoryName(
-        @Query("categoryName") categoryName: String
+        @Query("c") categoryName: String
     ): Response<ApiMeals>
+
 }
