@@ -22,4 +22,9 @@ interface TheMealDbApi {
     suspend fun getMealsByCategoryName(
         @Query("categoryName") categoryName: String
     ): Response<ApiMeals>
+
+    @GET("filter.php?i={recipeId}")
+    suspend fun getRecipeById(
+        @Query("recipeId") recipeId: String
+    ): Response<Recipe>
 }
