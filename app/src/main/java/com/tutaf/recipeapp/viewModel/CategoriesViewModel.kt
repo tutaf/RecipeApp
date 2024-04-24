@@ -16,11 +16,11 @@ import kotlinx.coroutines.launch
 
 class CategoriesViewModel(
     private val repo : Repository ,
-    savedStateHandle: SavedStateHandle,
+//    savedStateHandle: SavedStateHandle,
 
     ) : ViewModel() {
 
-    private val category = requireNotNull(savedStateHandle.get<String>(categoryScreenArgCategory))
+//    private val category = requireNotNull(savedStateHandle.get<String>(categoryScreenArgCategory))
 
 
     private val _categories: MutableStateFlow<List<ApiCategory>> = MutableStateFlow(emptyList())
@@ -32,19 +32,19 @@ class CategoriesViewModel(
 
 
     init {
-        getCategoryMeals()
+//        getCategoryMeals()
         getCategories()
     }
 
-    private fun getCategoryMeals() {
-        viewModelScope.launch {
-            val response = repo.getMealsByCategoryName(category)
-
-            _meals.update {
-                response
-            }
-        }
-    }
+//    private fun getCategoryMeals() {
+//        viewModelScope.launch {
+//            val response = repo.getMealsByCategoryName(category)
+//
+//            _meals.update {
+//                response
+//            }
+//        }
+//    }
 
     private fun getCategories() {
         viewModelScope.launch {

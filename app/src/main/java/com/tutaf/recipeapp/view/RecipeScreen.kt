@@ -13,7 +13,7 @@
 //@Composable
 //fun RecipeScreen(
 //    onUpClick: () -> Boolean,
-//    viewModel: RecipeViewModel = viewModel()
+//    viewModel: RecipeViewModel = koinViewModel()
 //) {
 //
 //    val recipe by viewModel.recipe.collectAsStateWithLifecycle()

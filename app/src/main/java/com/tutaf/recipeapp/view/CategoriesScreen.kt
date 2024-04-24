@@ -1,7 +1,6 @@
 package com.tutaf.recipeapp.view
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -15,6 +14,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tutaf.recipeapp.viewModel.CategoriesViewModel
 import  androidx.lifecycle.viewmodel.compose.viewModel
 import com.tutaf.recipeapp.model.ApiCategory
+import org.koin.androidx.compose.koinViewModel
 
 
 const val categoryScreenArgCategory = "category"
@@ -23,17 +23,17 @@ fun categoryScreenRoute(category: String) = "category/$category"
 
 @Composable
 fun CategoryScreen(
-    viewModel: CategoriesViewModel = viewModel()
+    viewModel: CategoriesViewModel = koinViewModel()
 ) {
     val categories by viewModel.categories.collectAsStateWithLifecycle()
-    val meals by viewModel.meals.collectAsStateWithLifecycle()
+//    val meals by viewModel.meals.collectAsStateWithLifecycle()
 
-    CategoryScreen(categories)
+    CategoryScreenContent(categories)
 
 }
 
 @Composable
-fun CategoryScreen(categories: List<ApiCategory>) {
+fun CategoryScreenContent(categories: List<ApiCategory>) {
 
     LazyColumn (
         modifier = Modifier.fillMaxSize(),
