@@ -1,7 +1,6 @@
 package com.tutaf.recipeapp.view
 
 import androidx.compose.runtime.Composable
-import com.tutaf.recipeapp.model.ApiCategory
 
 
 const val categoryScreenArgCategory = "category"

@@ -1,12 +1,9 @@
 package com.tutaf.recipeapp.viewModel
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tutaf.recipeapp.model.ApiCategory
-import com.tutaf.recipeapp.model.ApiMeal
 import com.tutaf.recipeapp.model.Repository
-import com.tutaf.recipeapp.view.categoryScreenArgCategory
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
