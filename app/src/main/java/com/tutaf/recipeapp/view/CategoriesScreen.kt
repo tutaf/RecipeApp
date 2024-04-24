@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import coil.compose.AsyncImage
 import com.tutaf.recipeapp.model.ApiCategory
 import com.tutaf.recipeapp.viewModel.CategoriesViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -57,10 +58,7 @@ fun CategoriesScreenContent(categories: List<ApiCategory>, onCategoryClick: (Api
             .fillMaxSize()
             .background(color = ItemBackgroundColor) // Background for entire screen
     ) {
-        CenterAlignedTopAppBar(
-            title = { Text("Categories") },
-            modifier = Modifier.fillMaxWidth()
-        )
+        CenterAlignedTopAppBar(title = { Text("Categories", style = MaterialTheme.typography.titleLarge)  }, modifier = Modifier.fillMaxWidth(),  )
         Spacer(modifier = Modifier.height(16.dp))
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
@@ -87,10 +85,14 @@ fun CategoriesScreenContent(categories: List<ApiCategory>, onCategoryClick: (Api
                     ) {
                         Text(
                             text = category.name,
-                            style = MaterialTheme.typography.bodyLarge,
+                            style = MaterialTheme.typography.titleLarge,
                             modifier = Modifier.padding(16.dp) // Padding inside the Text
                         )
-                        Spacer(modifier = Modifier.width(10.dp))
+                        Spacer(modifier = Modifier.weight(1f))  // This pushes the image to the right)
+                        AsyncImage(
+                            model = category.thumbnailLink,
+                            contentDescription = null,
+                        )
                     }
                 }
             }

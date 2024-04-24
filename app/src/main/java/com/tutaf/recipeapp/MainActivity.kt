@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
                     composable(categoriesScreenRouteDefinition){
                         CategoriesScreen( onCategoryClick = { category ->
                             navController.navigate(categoryScreenRoute(category.name))
-                             Log.i("tagtag", category.name)
+                            Log.i("tagtag", category.name)
                         })
                     }
                     composable(categoryScreenRouteDefinition){
