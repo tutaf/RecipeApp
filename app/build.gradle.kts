@@ -71,6 +71,8 @@ dependencies {
     implementation(platform(libs.koin.bom))
     implementation(libs.koin.androidx.compose)
 
+    implementation(libs.coil.compose)
+
 
     implementation(libs.moshi.core)
     implementation(libs.moshi.adapters)

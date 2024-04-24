@@ -1,6 +1,7 @@
 package com.tutaf.recipeapp.view
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import coil.compose.AsyncImage
 import com.tutaf.recipeapp.model.ApiCategory
 import com.tutaf.recipeapp.viewModel.CategoriesViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -41,7 +43,7 @@ const val categoriesScreenRouteDefinition = "category"
      val categories by viewModel.categories.collectAsStateWithLifecycle()
  //    val meals by viewModel.meals.collectAsStateWithLifecycle()
 
-     CategoriesScreenContent(categories)
+     CategoriesScreenContent(categories, onCategoryClick)
 
 }
 
@@ -50,16 +52,13 @@ val ItemBackgroundColor = Color(0xFFF6F6F6)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CategoriesScreenContent(categories: List<ApiCategory>) {
+fun CategoriesScreenContent(categories: List<ApiCategory>, onCategoryClick: (ApiCategory) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(color = ItemBackgroundColor) // Background for entire screen
     ) {
-        CenterAlignedTopAppBar(
-            title = { Text("Categories") },
-            modifier = Modifier.fillMaxWidth()
-        )
+        CenterAlignedTopAppBar(title = { Text("Categories", style = MaterialTheme.typography.titleLarge)  }, modifier = Modifier.fillMaxWidth(),  )
         Spacer(modifier = Modifier.height(16.dp))
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
@@ -75,6 +74,7 @@ fun CategoriesScreenContent(categories: List<ApiCategory>) {
                             elevation = 8.dp,
                             shape = RoundedCornerShape(20.dp) // Rounded corners with shadows
                         )
+                        .clickable { onCategoryClick(category) }
                         .background(
                             color = ItemBackgroundColor,
                             shape = RoundedCornerShape(20.dp)
@@ -85,10 +85,14 @@ fun CategoriesScreenContent(categories: List<ApiCategory>) {
                     ) {
                         Text(
                             text = category.name,
-                            style = MaterialTheme.typography.bodyLarge,
+                            style = MaterialTheme.typography.titleLarge,
                             modifier = Modifier.padding(16.dp) // Padding inside the Text
                         )
-                        Spacer(modifier = Modifier.width(10.dp))
+                        Spacer(modifier = Modifier.weight(1f))  // This pushes the image to the right)
+                        AsyncImage(
+                            model = category.thumbnailLink,
+                            contentDescription = null,
+                        )
                     }
                 }
             }
@@ -109,6 +113,6 @@ fun CategoriesScreenPreview()  {
 
         )
 
-    CategoriesScreenContent(categories = categories)
+    CategoriesScreenContent(categories = categories, {})
 }
 

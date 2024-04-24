@@ -1,6 +1,7 @@
 package com.tutaf.recipeapp.viewModel
 
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -25,7 +26,15 @@ class CategoryViewModel(
 
 
     private val _meals: MutableStateFlow<List<ApiMeal>> = MutableStateFlow(emptyList())
+    private val _category: MutableStateFlow<ApiCategory> = MutableStateFlow(ApiCategory(
+        name = "Loading...",
+        id = 1,
+        description = "Loading ...",
+        thumbnailLink = "https://www.themealdb.com/images/media/meals/1550441275.jpg"
+
+    ))
     val meals: StateFlow<List<ApiMeal>> = _meals.asStateFlow()
+    val category_entity: StateFlow<ApiCategory> = _category.asStateFlow()
 
 
     init {
@@ -42,6 +51,18 @@ class CategoryViewModel(
         }
     }
 
+    private fun getCategory() {
+        viewModelScope.launch {
+            val response = repo.getCategories()
 
+            for (item in response) {
+                if (item.name == category) {
+                    _category.update {
+                        item
+                    }
+                }
+            }
+        }
+    }
 
 }

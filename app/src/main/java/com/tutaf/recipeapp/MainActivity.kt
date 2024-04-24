@@ -1,6 +1,7 @@
 package com.tutaf.recipeapp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.EnterTransition
@@ -37,6 +38,7 @@ class MainActivity : ComponentActivity() {
                     composable(categoriesScreenRouteDefinition){
                         CategoriesScreen( onCategoryClick = { category ->
                             navController.navigate(categoryScreenRoute(category.name))
+                            Log.i("tagtag", category.name)
                         })
                     }
                     composable(categoryScreenRouteDefinition){
