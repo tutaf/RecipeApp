@@ -76,6 +76,7 @@ dependencies {
     implementation(libs.moshi.adapters)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
     ksp(libs.moshi.annotationProcessor)
 
     testImplementation(libs.junit)
