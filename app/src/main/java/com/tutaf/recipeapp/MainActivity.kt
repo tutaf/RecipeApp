@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
 import com.tutaf.recipeapp.ui.theme.RecipeAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -17,30 +18,33 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             RecipeAppTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
+                val navController = rememberNavController()
+                NavHost(
+                    navController = navController,
+                    startDestination = postsScreenRouteDefinition,
+                    enterTransition = { EnterTransition.None },
+                    exitTransition = { ExitTransition.None },
+                    modifier = Modifier
+                        .background(MaterialTheme.colorScheme.background),
+
+                    ) {
+                    composable(postsScreenRouteDefinition) {
+                        PostsScreen(
+                            onPostClick = { post ->
+                                navController.navigate(commentsScreenRoute(post.id))
+                            }
+                        )
+                    }
+                    composable(
+                        commentsScreenRouteDefinition,
+                        arguments = listOf(
+                            navArgument(commentsScreenArgPostId) { type = NavType.LongType }
+                        )
+                    ) {
+                        CommentsScreen(onUpClick = { navController.navigateUp() })
+                    }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    RecipeAppTheme {
-        Greeting("Android")
     }
 }
