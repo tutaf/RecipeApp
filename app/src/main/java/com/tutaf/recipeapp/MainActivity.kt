@@ -12,7 +12,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.tutaf.recipeapp.ui.theme.RecipeAppTheme
+import com.tutaf.recipeapp.view.CategoriesScreen
 import com.tutaf.recipeapp.view.CategoryScreen
+import com.tutaf.recipeapp.view.categoriesScreenRouteDefinition
+import com.tutaf.recipeapp.view.categoryScreenRoute
 import com.tutaf.recipeapp.view.categoryScreenRouteDefinition
 
 class MainActivity : ComponentActivity() {
@@ -30,6 +33,16 @@ class MainActivity : ComponentActivity() {
                         .background(MaterialTheme.colorScheme.background),
 
                     ) {
+
+                    composable(categoriesScreenRouteDefinition){
+                        CategoriesScreen( onCategoryClick = { category ->
+                            navController.navigate(categoryScreenRoute(category.name))
+                        })
+                    }
+                    composable(categoryScreenRouteDefinition){
+                        CategoryScreen()
+                    }
+
 //                    composable(homeScreenRouteDefinition) {
 //                        HomeScreen(
 //                            onMealClick = { meal ->
@@ -45,9 +58,6 @@ class MainActivity : ComponentActivity() {
 //                    ) {
 //                        RecipeScreen { navController.navigateUp() }
 //                    }
-                    composable(categoryScreenRouteDefinition){
-                        CategoryScreen()
-                    }
 //                    composable(searchScreenRouteDefinition){
 //                        SearchScreen()
 //                    }

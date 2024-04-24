@@ -1,5 +1,6 @@
 package com.tutaf.recipeapp.viewModel
 
+
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,29 +15,32 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 
-class CategoriesViewModel(
+class CategoryViewModel(
     private val repo : Repository ,
+    savedStateHandle: SavedStateHandle,
 
-    ) : ViewModel() {
+) : ViewModel() {
 
-    private val _categories: MutableStateFlow<List<ApiCategory>> = MutableStateFlow(emptyList())
-    val categories: StateFlow<List<ApiCategory>> = _categories.asStateFlow()
+    private val category = requireNotNull(savedStateHandle.get<String>(categoryScreenArgCategory))
+
+
+    private val _meals: MutableStateFlow<List<ApiMeal>> = MutableStateFlow(emptyList())
+    val meals: StateFlow<List<ApiMeal>> = _meals.asStateFlow()
 
 
     init {
-        getCategories()
+        getCategoryMeals()
     }
 
-
-    private fun getCategories() {
+    private fun getCategoryMeals() {
         viewModelScope.launch {
-            val response = repo.getCategories()
-            _categories.update {
+            val response = repo.getMealsByCategoryName(category)
+
+            _meals.update {
                 response
             }
         }
     }
-
 
 
 

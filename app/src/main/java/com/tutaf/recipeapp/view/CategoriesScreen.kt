@@ -17,23 +17,23 @@ import com.tutaf.recipeapp.model.ApiCategory
 import org.koin.androidx.compose.koinViewModel
 
 
-const val categoryScreenArgCategory = "category"
-const val categoryScreenRouteDefinition = "category/{${categoryScreenArgCategory}}"
-fun categoryScreenRoute(category: String) = "category/$category"
+const val categoriesScreenRouteDefinition = "category"
 
 @Composable
-fun CategoryScreen(
-    viewModel: CategoriesViewModel = koinViewModel()
+fun CategoriesScreen(
+    viewModel: CategoriesViewModel = koinViewModel(),
+    onCategoryClick: (ApiCategory)->Unit
+
 ) {
     val categories by viewModel.categories.collectAsStateWithLifecycle()
 //    val meals by viewModel.meals.collectAsStateWithLifecycle()
 
-    CategoryScreenContent(categories)
+    CategoriesScreenContent(categories)
 
 }
 
 @Composable
-fun CategoryScreenContent(categories: List<ApiCategory>) {
+fun CategoriesScreenContent(categories: List<ApiCategory>) {
 
     LazyColumn (
         modifier = Modifier.fillMaxSize(),
