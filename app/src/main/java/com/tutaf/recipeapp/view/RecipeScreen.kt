@@ -1,3 +1,7 @@
+package com.tutaf.recipeapp.view
+
+const val RecipeScreenDestination= "recipes"
+
 //package com.tutaf.recipeapp.view
 //
 //import androidx.compose.runtime.Composable
