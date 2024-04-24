@@ -1,3 +1,8 @@
 package com.tutaf.recipeapp.view
 
-const val SearchScreenDestination= "search"
+
+const val searchScreenRouteDefinition = "search"
+
+fun SearchScreen(){
+
+}
