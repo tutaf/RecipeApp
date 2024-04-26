@@ -63,7 +63,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.runtime.livedata.v166)
-
+    implementation("io.coil-kt:coil-compose:2.6.0")
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.moshiConverter)
     implementation(libs.retrofit.loggingInterceptor)

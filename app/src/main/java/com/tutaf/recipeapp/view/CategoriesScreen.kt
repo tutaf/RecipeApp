@@ -1,5 +1,6 @@
 package com.tutaf.recipeapp.view
 
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,28 +27,57 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import coil.compose.AsyncImage
 import com.tutaf.recipeapp.model.ApiCategory
 import com.tutaf.recipeapp.viewModel.CategoriesViewModel
 import org.koin.androidx.compose.koinViewModel
 
+
 const val categoriesScreenRouteDefinition = "category"
 
- @Composable
- fun CategoriesScreen(
+@Composable
+fun CategoriesScreen(
+    viewModel: CategoriesViewModel = koinViewModel(),
+    onCategoryClick: (ApiCategory)->Unit
+) {
+    val categories by viewModel.categories.collectAsStateWithLifecycle()
+    //    val meals by viewModel.meals.collectAsStateWithLifecycle()
 
-     viewModel: CategoriesViewModel = koinViewModel(),
-     onCategoryClick: (ApiCategory) -> Unit
- ) {
-     val categories by viewModel.categories.collectAsStateWithLifecycle()
- //    val meals by viewModel.meals.collectAsStateWithLifecycle()
-
-     CategoriesScreenContent(categories)
+    CategoriesScreenContent(categories)
 
 }
+
+// @Composable
+// fun CategoryScreenContent(categories: List<ApiCategory>) {
+//
+//     LazyColumn (
+//         modifier = Modifier.fillMaxSize(),
+//         horizontalAlignment = Alignment.CenterHorizontally,
+//         verticalArrangement = Arrangement.spacedBy(16.dp)
+//     ){
+//         items(categories) { category ->
+//             Text(
+//                 text = category.name,
+//             )
+//         }
+//     }
+// }
+
+
 
 val PrimaryBackgroundColor = Color(0xFFC1C1C1)
 val ItemBackgroundColor = Color(0xFFF6F6F6)
 
+//@OptIn(ExperimentalMaterial3Api::class)
+//@Composable
+//fun CategoriesScreen(){
+//
+//    val categories = listOf(myCategory)
+//    CategoriesScreenContent(categories = categories)
+//
+//
+//}
+//
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CategoriesScreenContent(categories: List<ApiCategory>) {
@@ -56,10 +86,7 @@ fun CategoriesScreenContent(categories: List<ApiCategory>) {
             .fillMaxSize()
             .background(color = ItemBackgroundColor) // Background for entire screen
     ) {
-        CenterAlignedTopAppBar(
-            title = { Text("Categories") },
-            modifier = Modifier.fillMaxWidth()
-        )
+        CenterAlignedTopAppBar(title = { Text("Categories", style = MaterialTheme.typography.titleLarge)  }, modifier = Modifier.fillMaxWidth(),  )
         Spacer(modifier = Modifier.height(16.dp))
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
@@ -85,10 +112,14 @@ fun CategoriesScreenContent(categories: List<ApiCategory>) {
                     ) {
                         Text(
                             text = category.name,
-                            style = MaterialTheme.typography.bodyLarge,
+                            style = MaterialTheme.typography.titleLarge,
                             modifier = Modifier.padding(16.dp) // Padding inside the Text
                         )
-                        Spacer(modifier = Modifier.width(10.dp))
+                        Spacer(modifier = Modifier.weight(1f))  // This pushes the image to the right)
+                        AsyncImage(
+                            model = category.thumbnailLink,
+                            contentDescription = null,
+                        )
                     }
                 }
             }
